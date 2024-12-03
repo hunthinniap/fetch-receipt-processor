@@ -1,14 +1,37 @@
-version: '3'
-
+version: '3.8'
 services:
-  flask-receipt-api:
+  app:
     build: .
     ports:
-      - "5000:5000"
+      - "5001:5001"
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - REDIS_HOST=redis
     depends_on:
       - redis
+    networks:
+      - app-network
 
   redis:
-    image: "redis:latest"
+    image: "redis:alpine"
     ports:
       - "6379:6379"
+    networks:
+      - app-network
+
+  test:
+    build: .
+    command: pytest test.py
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    depends_on:
+      - app
+      - redis
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,11 +1,14 @@
 from flask import Flask, request, jsonify
 import uuid
-from points_calculation import calculate_points
+from utils import calculate_points
 import redis
 import json
+import os
+
+redis_host = os.getenv("REDIS_HOST", "localhost")
 
 app = Flask(__name__)
-redis_client = redis.Redis(host="localhost", port=6379, db=0)
+redis_client = redis.Redis(host="redis", port=6379, db=0)
 
 
 @app.route("/")

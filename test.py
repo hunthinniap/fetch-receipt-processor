@@ -3,7 +3,8 @@ import uuid
 import pytest
 from flask import Flask
 from fakeredis import FakeRedis
-from endpoints import app, calculate_points
+from app import app
+from utils import calculate_points
 import os
 
 
@@ -48,7 +49,8 @@ def fake_redis():
 @pytest.fixture
 def client(fake_redis, monkeypatch):
 
-    monkeypatch.setattr("endpoints.redis_client", fake_redis)
+    monkeypatch.setattr("app.redis_client", fake_redis)
+
     app.config["TESTING"] = True
     with app.test_client() as client:
         yield client
