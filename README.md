@@ -1,5 +1,5 @@
 
-# **Receipt Processing API Documentation**
+# **Fetch Receipt Backend Challange**
 
 ## **API Overview**
 
