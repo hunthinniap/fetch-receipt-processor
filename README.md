@@ -87,7 +87,7 @@ The points are calculated based on the following rules:
     You can run the tests using the following command:
 
     ```bash
-    pytest
+    pytest test.py
 ---
 
 ## **Running the Application with Docker**
